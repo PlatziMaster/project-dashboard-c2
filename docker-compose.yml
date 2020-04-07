@@ -1,0 +1,8 @@
+version: '3.3'
+services:
+  mongo:
+    image: mongo
+    ports:
+      - '27017-27019:27017-27019'
+    volumes:
+      - ./mongo/local_data:/data/db
