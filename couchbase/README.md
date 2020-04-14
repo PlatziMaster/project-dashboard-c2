@@ -1,3 +1,8 @@
+- CusterName: app
+- User: admin
+- Pass: admin123
+- Bucket: platzi
+
 ```sql
 CREATE PRIMARY INDEX ON `platzi` USING GSI
 CREATE INDEX `type` ON `platzi`(`type`)

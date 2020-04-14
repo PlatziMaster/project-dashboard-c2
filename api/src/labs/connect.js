@@ -1,23 +1,26 @@
-const couchbase = require('couchbase')
+const couchbase = require('couchbase');
 const cluster = new couchbase.Cluster('couchbase://localhost/');
 cluster.authenticate('admin', 'admin123');
 const bucket = cluster.openBucket('platzi');
-const N1qlQuery = couchbase.N1qlQuery;
 
-bucket.upsert(
-  'user:king_arthur', {
-    'email': 'kingarthur@couchbase.com', 'interests': ['Holy Grail', 'African Swallows']
-  },
-  function (err, result) {
-    console.log(err);
+bucket.upsert("1111111", {
+  id: "1111111",
+  customer_id: "123",
+  rate: 5,
+  created_at: new Date().toISOString,
+  type: "conversation",
+}, (error, result) => {
+  if (error) {
+    console.error(error);
+  } else {
     console.log(result);
   }
-)
+});
 
-const query = N1qlQuery.fromString('SELECT * FROM bucketname WHERE $1 in interests LIMIT 1');
-
-bucket.query(query, ['African Swallows'],
-function (err, rows) {
-  console.log(err);
-  console.log("Got rows: %j", rows);
+bucket.get("1111111", (error, result) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log(result.value);
+  }
 });
