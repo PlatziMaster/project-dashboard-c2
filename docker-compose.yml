@@ -1,8 +1,25 @@
   version: '3.3'
   services:
+    api:
+      build:
+        context: ./api
+        dockerfile: dev.dockerfile
+      depends_on:
+        - couchbase
+        - mongo
+      volumes:
+        - ./api:/app
+        - /app/node_modules
     mongo:
       image: mongo
       ports:
         - '27017-27019:27017-27019'
       volumes:
         - ./mongo/local_data:/data/db
+    couchbase:
+      image: couchbase:enterprise-6.0.2
+      ports:
+        - '8091-8096:8091-8096'
+        - '11210-11211:11210-11211'
+      volumes:
+        - ./couchbase/local_data:/opt/couchbase/var
