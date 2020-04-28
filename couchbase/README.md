@@ -32,6 +32,16 @@ function (doc, meta) {
 }
 ```
 
+```js
+function (doc, meta) {
+  if (doc.type === 'conversation') {
+    var datetime = doc.created_at.split('T')[0];
+    var date = datetime.split('-');
+    emit(date, doc.rate);
+  }
+}
+```
+
 ### Reduce
 
 ```js

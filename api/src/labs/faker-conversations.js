@@ -10,7 +10,7 @@ for (let index = 0; index < 50; index++) {
     id: faker.random.uuid(),
     customer_id: faker.random.number(12),
     rate: faker.random.number(6),
-    created_at: faker.date.between('2019-01-01', '2019-12-31'),
+    created_at: faker.date.between('2019-01-01', '2019-01-31'),
     type: 'conversation'
   };
   bucket.upsert(newDoc.id, newDoc, (error, result) => {
