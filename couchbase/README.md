@@ -43,3 +43,35 @@ function (keys, values, rereduce) {
   }
 }
 ```
+
+
+### Custom reduce
+
+```js
+function (keys, values, rereduce) {
+  if (rereduce) {
+    var result = {}
+    values.forEach(function (count) {
+      for (var key in count) {
+        if (result[key]){
+          result[key] = result[key] +
+          count[key]
+        } else {
+          result[key] = count[key]
+        }
+      }
+    });
+    return result;
+  } else {
+    var count = {};
+    values.forEach(function (value) {
+      if (count[value]){
+        count[value] = count[value] + 1;
+      } else {
+        count[value] = 1;
+      }
+    })
+    return count;
+  }
+}
+```
