@@ -1,5 +1,5 @@
 const couchbase = require('couchbase');
-const cluster = new couchbase.Cluster('couchbase://localhost/');
+const cluster = new couchbase.Cluster('couchbase://localhost:8081/');
 cluster.authenticate('admin', 'admin123');
 const bucket = cluster.openBucket('platzi');
 
