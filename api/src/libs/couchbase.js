@@ -1,4 +1,4 @@
-const { Cluster, N1qlQuery } = require('couchbase');
+const { Cluster, N1qlQuery, ViewQuery } = require('couchbase');
 const { config } = require('./../config/index');
 
 const COUCHBASE_URI = `couchbase://${config.cdbHost}:${config.cdbPort}`;
@@ -22,6 +22,32 @@ class CouchbaseLib {
           reject(error);
         } else {
           resolve(result.value);
+        }
+      });
+    });
+  }
+
+  runQuery(query) {
+    return new Promise((resolve, reject) => {
+      const n1Query = N1qlQuery.fromString(query);
+      this.getBucket().query(n1Query, [], (error, rows) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(rows);
+        }
+      });
+    });
+  }
+
+  runView(viewQuery) {
+    return new Promise((resolve, reject) => {
+      this.getBucket().query(viewQuery, (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          console.log(result);
+          resolve(result);
         }
       });
     });

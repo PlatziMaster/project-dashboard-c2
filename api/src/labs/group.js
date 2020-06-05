@@ -9,7 +9,7 @@ const end = [2019, 2, 28];
 
 const viewQuery = ViewQuery.from('conversations','count_rates')
 .range(start, end)
-.group_level(2);
+.group_level(2)
 
 bucket.query(viewQuery, (error, result) => {
   if (error) {

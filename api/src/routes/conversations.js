@@ -8,8 +8,17 @@ const conversationsApi = (app) => {
   const conversationsService = new ConversationsService();
 
   router.get('/', async (req, res, next) => {
-    console.log(req);
-    res.status(200).json({data: "hello"});
+    const docs = await conversationsService.getAllConversations();
+    res.status(200).json(docs);
+  });
+
+  router.get('/stats', async (req, res, next) => {
+    try {
+      const rta = await conversationsService.getStats();
+      res.status(200).json(rta);
+    } catch (error) {
+      next(error);
+    }
   });
 
   router.get('/:id', async (req, res, next) => {
