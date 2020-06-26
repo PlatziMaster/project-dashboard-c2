@@ -1,5 +1,13 @@
   version: '3.3'
   services:
+    api:
+      build:
+        context: ./api
+        dockerfile: Dockerfile
+      ports:
+        - '3000:3000'
+      depends_on:
+        - couchbase
     mongo:
       image: mongo
       ports:

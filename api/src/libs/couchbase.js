@@ -46,7 +46,6 @@ class CouchbaseLib {
         if (error) {
           reject(error);
         } else {
-          console.log(result);
           resolve(result);
         }
       });

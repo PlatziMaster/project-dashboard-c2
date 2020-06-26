@@ -14,7 +14,8 @@ const conversationsApi = (app) => {
 
   router.get('/stats', async (req, res, next) => {
     try {
-      const rta = await conversationsService.getStats();
+      const { start, end } = req.query;
+      const rta = await conversationsService.getStats(start, end);
       res.status(200).json(rta);
     } catch (error) {
       next(error);
