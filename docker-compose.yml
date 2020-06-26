@@ -8,12 +8,6 @@
         - '3000:3000'
       depends_on:
         - couchbase
-    mongo:
-      image: mongo
-      ports:
-        - '27017-27019:27017-27019'
-      volumes:
-        - ./mongo/local_data:/data/db
     couchbase:
       image: couchbase:enterprise-6.0.2
       ports:
@@ -21,3 +15,22 @@
         - '11210-11211:11210-11211'
       volumes:
         - ./couchbase/local_data:/opt/couchbase/var
+    redis:
+      image: redis
+    celery:
+      build:
+        context: ./celery
+        dockerfile: Dockerfile
+      depends_on:
+        - redis
+        - flower
+    flower:
+      image: mher/flower
+      ports:
+        - '5555:5555'
+      depends_on:
+        - redis
+      environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - FLOWER_PORT=5555
+      - FLOWER_BASIC_AUTH=root:tBvsAHF7ZsVPPrYc
