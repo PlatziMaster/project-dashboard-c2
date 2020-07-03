@@ -8,6 +8,10 @@
         - '3000:3000'
       depends_on:
         - couchbase
+        - celery
+      volumes:
+        - ./api:/app
+        - /app/node_modules
     couchbase:
       image: couchbase:enterprise-6.0.2
       ports:
@@ -17,6 +21,8 @@
         - ./couchbase/local_data:/opt/couchbase/var
     redis:
       image: redis
+      ports:
+        - '6379:6379'
     celery:
       build:
         context: ./celery

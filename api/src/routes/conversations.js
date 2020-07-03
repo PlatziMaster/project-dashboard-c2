@@ -1,5 +1,6 @@
 const express = require('express');
 const ConversationsService = require('./../services/conversations');
+const client = require('./../libs/celery');
 
 const conversationsApi = (app) => {
   const router = express.Router();
@@ -10,6 +11,18 @@ const conversationsApi = (app) => {
   router.get('/', async (req, res, next) => {
     const docs = await conversationsService.getAllConversations();
     res.status(200).json(docs);
+  });
+
+
+  router.post('/report', async (req, res, next) => {
+    try {
+      const body = req.body;
+      const task = client.createTask('tasks.suma');
+      const { taskId } = task.applyAsync();
+      res.status(200).json({taskId});
+    } catch (error) {
+      next(error);
+    }
   });
 
   router.get('/stats', async (req, res, next) => {

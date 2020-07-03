@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/server.js",
+    "start:dev": "nodemon src/server.js",
     "start": "node src/server"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
+    "celery-node": "^0.3.0",
     "cors": "^2.8.5",
     "couchbase": "^2.6.10",
     "date-fns": "^2.14.0",
