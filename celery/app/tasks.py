@@ -7,9 +7,9 @@ celery_app = Celery('tasks', broker='redis://redis:6379/')
 celery_app.conf.timezone = 'America/Bogota'
 
 celery_app.conf.beat_schedule = {
-    'each 5 min': {
+    'each 2 min': {
         'task': 'tasks.resta',
-        'schedule': crontab(minute='*/5')
+        'schedule': crontab(minute='*/2')
     },
 }
 
@@ -17,6 +17,9 @@ celery_app.conf.beat_schedule = {
 @celery_app.task()
 def suma():
     time.sleep(20)
+    # code insert db
+    # send correo
+    # pandas
     return random.randint(1, 100)
 
 
